@@ -44,7 +44,7 @@ const ThemeCard = memo(
   }) => {
     const themeName = data.theme.replace(/ \d*/g, "");
     return (
-      <Grid item xs={4}>
+      <Grid item xs={12} md={6} lg={4}>
         <Card variant="outlined">
           <Typography variant="h3" sx={{ paddingX: "1rem", py: "0.5rem" }}>
             {data.theme}
