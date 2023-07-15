@@ -9,7 +9,7 @@ import TextField from "@mui/material/TextField";
 
 import ThemeCard from "./ThemeCard";
 
-import data from "./data/j22.json";
+import data from "./data";
 
 const darkTheme = createTheme({
   palette: {

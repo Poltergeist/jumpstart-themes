@@ -10,7 +10,7 @@ import Divider from "@mui/material/Divider";
 
 import Grid from "@mui/material/Grid";
 
-import data from "./data/j22.json";
+import data from "./data";
 
 let cardOverlap = data.reduce(
   (acc, cur) => {
@@ -70,9 +70,7 @@ const ThemeCard = memo(
                     })`,
                   }}
                 >
-                  <ListItemText>
-                    {datum} {cardOverlap[themeName][datum]}
-                  </ListItemText>
+                  <ListItemText>{datum}</ListItemText>
                 </ListItem>
               ))}
 
