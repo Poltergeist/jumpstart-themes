@@ -2,6 +2,7 @@
   "name": "jumpstart-themes",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://poltergeist.github.io/jumpstart-themes/",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
