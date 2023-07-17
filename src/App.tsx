@@ -117,7 +117,17 @@ function App() {
               );
             })
             .map((datum) => (
-              <ThemeCard data={datum} key={`${datum.set}-${datum.theme}`} />
+              <ThemeCard
+                data={
+                  datum as {
+                    theme: string;
+                    themeGroup: string | null;
+                    cards: string[];
+                    export: string[];
+                  }
+                }
+                key={`${datum.set}-${datum.theme}`}
+              />
             ))}
         </Grid>
       </Container>

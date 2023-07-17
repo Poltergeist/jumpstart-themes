@@ -3,7 +3,7 @@ const fs = require("fs");
 
 let cardOverlap = data.reduce(
   (acc, cur) => {
-    const theme = cur.theme.replace(/ \d*/g, "");
+    const theme = cur.themeGroup || cur.theme.replace(/ \d*/g, "");
     if (acc[theme] == null) {
       acc[theme] = {};
       acc.total[theme] = 0;
@@ -22,7 +22,7 @@ let cardOverlap = data.reduce(
 );
 
 const newData = data.map((theme) => {
-  const themeName = theme.theme.replace(/ \d*/g, "");
+  const themeName = theme.themeGroup || theme.theme.replace(/ \d*/g, "");
   theme.cards.sort((a, b) =>
     cardOverlap[themeName][a] === cardOverlap[themeName][b]
       ? a.localeCompare(b)

@@ -20,9 +20,14 @@ const ThemeCard = memo(
   ({
     data,
   }: {
-    data: { theme: string; cards: string[]; export: string[] };
+    data: {
+      theme: string;
+      themeGroup: string | null;
+      cards: string[];
+      export: string[];
+    };
   }) => {
-    const themeName = data.theme.replace(/ \d*/g, "");
+    const themeName = data.themeGroup || data.theme.replace(/ \d*/g, "");
     const cards = data.cards.map((datum, index) => (
       <ListItem
         key={`${data.theme}-${datum}`}
