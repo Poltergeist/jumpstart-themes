@@ -10,31 +10,11 @@ import Divider from "@mui/material/Divider";
 
 import Grid from "@mui/material/Grid";
 
-import data from "./data";
-
-let cardOverlap = data.reduce(
-  (acc, cur) => {
-    const theme = cur.theme.replace(/ \d*/g, "");
-    if (acc[theme] == null) {
-      acc[theme] = {};
-      acc.total[theme] = 0;
-    }
-    acc.total[theme]++;
-    cur.cards.forEach((card: string) => {
-      if (acc[theme][card] == null) {
-        acc[theme][card] = 0;
-      }
-      acc[theme][card]++;
-    });
-
-    return acc;
-  },
-  { total: {} } as {
-    [key: string]: {
-      [key: string]: number;
-    };
-  }
-);
+const cardOverlap = require("./data/overlap.json") as {
+  [key: string]: {
+    [key: string]: number;
+  };
+};
 
 const ThemeCard = memo(
   ({
@@ -43,6 +23,18 @@ const ThemeCard = memo(
     data: { theme: string; cards: string[]; export: string[] };
   }) => {
     const themeName = data.theme.replace(/ \d*/g, "");
+    const cards = data.cards.map((datum, index) => (
+      <ListItem
+        key={`${data.theme}-${datum}`}
+        sx={{
+          bgcolor: `rgba(74, 165, 111, ${
+            1 - cardOverlap[themeName][datum] / cardOverlap.total[themeName]
+          })`,
+        }}
+      >
+        <ListItemText>{datum}</ListItemText>
+      </ListItem>
+    ));
     return (
       <Grid item xs={12} md={6} lg={4}>
         <Card variant="outlined">
@@ -51,28 +43,7 @@ const ThemeCard = memo(
           </Typography>
           <Divider />
           <List dense={true}>
-            {data.cards
-              .sort((a, b) =>
-                cardOverlap[themeName][a] === cardOverlap[themeName][b]
-                  ? a.localeCompare(b)
-                  : cardOverlap[themeName][a] > cardOverlap[themeName][b]
-                  ? 1
-                  : -1
-              )
-              .map((datum, index) => (
-                <ListItem
-                  key={index}
-                  sx={{
-                    bgcolor: `rgba(74, 165, 111, ${
-                      1 -
-                      cardOverlap[themeName][datum] /
-                        cardOverlap.total[themeName]
-                    })`,
-                  }}
-                >
-                  <ListItemText>{datum}</ListItemText>
-                </ListItem>
-              ))}
+            {cards}
 
             <ListItem>
               <Button

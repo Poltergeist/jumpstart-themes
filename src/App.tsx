@@ -19,7 +19,7 @@ import TextField from "@mui/material/TextField";
 
 import ThemeCard from "./ThemeCard";
 
-import data from "./data";
+import data from "./data/data.json";
 
 const sets = data.reduce(
   (acc: string[], { set }) => (!acc.includes(set) ? [...acc, set] : acc),
@@ -116,8 +116,8 @@ function App() {
                   : true)
               );
             })
-            .map((datum, index) => (
-              <ThemeCard data={datum} key={index} />
+            .map((datum) => (
+              <ThemeCard data={datum} key={`${datum.set}-${datum.theme}`} />
             ))}
         </Grid>
       </Container>
