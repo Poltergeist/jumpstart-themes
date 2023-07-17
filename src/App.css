@@ -1,0 +1,12 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.grid div {
+  align-self: stretch;
+}
+
+.form {
+  grid-column: span 3;
+}

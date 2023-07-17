@@ -1,14 +1,7 @@
 import { memo } from "react";
+import "./ThemeCard.css";
 
-import Card from "@mui/material/Card";
-import Button from "@mui/material/Button";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-
-import Grid from "@mui/material/Grid";
+import { Button } from "@mui/material";
 
 const cardOverlap = require("./data/overlap.json") as {
   [key: string]: {
@@ -24,46 +17,42 @@ const ThemeCard = memo(
   }) => {
     const themeName = data.theme.replace(/ \d*/g, "");
     const cards = data.cards.map((datum, index) => (
-      <ListItem
+      <li
         key={`${data.theme}-${datum}`}
-        sx={{
-          bgcolor: `rgba(74, 165, 111, ${
+        style={{
+          background: `rgba(74, 165, 111, ${
             1 - cardOverlap[themeName][datum] / cardOverlap.total[themeName]
           })`,
         }}
       >
-        <ListItemText>{datum}</ListItemText>
-      </ListItem>
+        <span>{datum}</span>
+      </li>
     ));
     return (
-      <Grid item xs={12} md={6} lg={4}>
-        <Card variant="outlined">
-          <Typography variant="h3" sx={{ paddingX: "1rem", py: "0.5rem" }}>
-            {data.theme}
-          </Typography>
-          <Divider />
-          <List dense={true}>
-            {cards}
+      <div>
+        <div>
+          <h3>{data.theme}</h3>
+          <hr />
+          <ul className="cardlist">{cards}</ul>
 
-            <ListItem>
-              <Button
-                onClick={() =>
-                  navigator.clipboard.writeText(data.export.join("\n"))
-                }
-              >
-                Copy csv
-              </Button>
-              <Button
-                onClick={() =>
-                  navigator.clipboard.writeText(data.cards.join("\n"))
-                }
-              >
-                Copy text
-              </Button>
-            </ListItem>
-          </List>
-        </Card>
-      </Grid>
+          <div className="">
+            <Button
+              onClick={() =>
+                navigator.clipboard.writeText(data.export.join("\n"))
+              }
+            >
+              Copy csv
+            </Button>
+            <Button
+              onClick={() =>
+                navigator.clipboard.writeText(data.cards.join("\n"))
+              }
+            >
+              Copy text
+            </Button>
+          </div>
+        </div>
+      </div>
     );
   }
 );

@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import "./App.css";
 
-import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
 import {
   Button,
   Select,
@@ -59,9 +58,9 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Container sx={{ padding: "2em" }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
+      <div>
+        <div className="grid">
+          <div className="form">
             <FormControl sx={{ m: 1, width: 300 }}>
               <InputLabel id="sets-checkbox-label">Sets</InputLabel>
               <Select
@@ -94,7 +93,7 @@ function App() {
             {searchValue !== "" && (
               <Button onClick={() => setSearchValue("")}>clear</Button>
             )}
-          </Grid>
+          </div>
           {data
             .filter((a) => {
               if (setsSelected.length !== 0 && !setsSelected.includes(a.set)) {
@@ -119,8 +118,8 @@ function App() {
             .map((datum) => (
               <ThemeCard data={datum} key={`${datum.set}-${datum.theme}`} />
             ))}
-        </Grid>
-      </Container>
+        </div>
+      </div>
     </ThemeProvider>
   );
 }
